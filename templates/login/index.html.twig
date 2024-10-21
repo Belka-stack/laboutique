@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+
+<style>
+    main {
+        margin-top: 8rem;
+    }
+</style>
+<div class="container my-5">
+    <h1>Connexion</h1>
+
+    {# La condition permet d'afficher les erreurs dans une div. Error correspond à ce que nous envoyons depyis notre controller #}
+
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {# Ensuite,il nous parle d'un form avec un attribut action avec la méthode path qui nous permet d'appeler la route app_login qui se trouve dans notre controller équivalent à son url et l'attibut method="post" pour eviter que le mail et le mot de passe s'affiche dans l'url.On a une value last_username dans l'inpu emain,c'est ce qu'on récupère de notre controller #}
+
+    <form action="{{ path('app_login') }}" method="post">
+        <label for="username">Votre email :</label>
+        <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required>
+
+        <label for="password mt-3">Votre mot de passe:</label>
+        <input class="form-control" type="password" id="password" name="_password" required>
+
+        <input type="hidden" name="_target_path" value="{{ path('app_account')}}">
+
+        <button type="submit" class="btn btn-success mt-3">Me connecter</button>
+    </form>
+    <br/>
+    <a href="{{ path('app_register')}}">M'inscrire</a>
+
+</div>
+
+{% endblock %}
