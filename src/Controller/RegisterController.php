@@ -29,6 +29,7 @@ class RegisterController extends AbstractController
 
          // Vérifie si le formulaire est soumis et en plus s'il est valid.
         if ($form->isSubmitted() && $form->isValid()) {
+
             
         //alors tu enregistre les datas en BBD 
 
@@ -36,6 +37,15 @@ class RegisterController extends AbstractController
         $entityManager->flush();
         
         //et tu envoies un message de confirmation du compte bien créé.
+
+        $this->addFlash(
+            'success',
+            'Votre compte est correctement créé, veuillez vous connecter.'
+        );
+
+        // Redirection vers la page de connection
+
+        return $this->redirectToRoute('app_login');
 
         }
 

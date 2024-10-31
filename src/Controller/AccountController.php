@@ -21,6 +21,7 @@ class AccountController extends AbstractController
     #[Route('/compte/modifier-mot-de-passe', name: 'app_account_modify_pwd')]
     public function password(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
     {
+
         $user = $this->getUser();
         $form = $this->createForm(PasswordUserType::class, $user, [
             'passwordHasher' => $passwordHasher
@@ -29,7 +30,12 @@ class AccountController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush(); 
+            
+            $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Yotre mot de passe est correctement mis à jour '
+            ); 
         }
         
         return $this->render('account/password.html.twig', [

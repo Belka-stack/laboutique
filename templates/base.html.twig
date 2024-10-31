@@ -30,15 +30,11 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ path ('app_home')}}">Accueil</a>
                     </li>
+                    {% for category in allCategories %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="{{ path('app_category', { slug : category.slug } ) }}">{{ category.name }}</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
+                    {% endfor %}
                 </ul>
                 <div class="speed-menu">
                     {# Si l'utilisateur son prenom s'affiche + le lien pouur alller vers son compte.S'il n'est pas connecté tu lui propose de le faire.#}
@@ -48,7 +44,9 @@
                     <a href="{{ path('app_login')}}"><i data-feather="user"></i></a>
                     {% endif %}
 
-                    <a href=""><i data-feather="shopping-cart"></i></a>
+                    <a href="{{ path('app_cart')}}"><i data-feather="shopping-cart"></i>
+                    <span class="badge text-bg-light">{{ totalCartQuantity }}</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -57,7 +55,20 @@
 
 <main>
 
+
+
+
 {% block body %}{% endblock %}
+
+<div class="container">
+    {% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert w-50 text-center alert-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+</div>
 
     <!-- FOOTER -->
     <footer class="container">

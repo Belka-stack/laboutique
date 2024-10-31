@@ -77,9 +77,6 @@ class PasswordUserType extends AbstractType
                 
             
 
-               
-            
-
             // 3. Si c’est != envoyer une erreur
 
             if (!$isValid) {
