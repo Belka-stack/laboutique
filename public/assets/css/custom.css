@@ -84,3 +84,8 @@
     margin-right: 20px;
 }
 
+#order_addresses .form-check {
+    background-color: #e8f1ff;
+    padding: 10px 40px;
+}
+
